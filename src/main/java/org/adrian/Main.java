@@ -1,4 +1,7 @@
-package org.adrian;
+package src.main.java.org.adrian;
+
+import src.main.java.org.adrian.controller.GestorUsuarios;
+import src.main.java.org.adrian.model.Usuario;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -8,8 +11,8 @@ public class Main {
             // Ejemplo de uso
             GestorUsuarios gestor = new GestorUsuarios();
 
-            Usuario usuario1 = new Usuario("Alice", "contraseña123", Rol.ADMIN);
-            Usuario usuario2 = new Usuario("Bob", "secreto456", Rol.USUARIO);
+            Usuario usuario1 = new Usuario("Pepe", "contraseña123", "admin");
+            Usuario usuario2 = new Usuario("Pepa", "secreto456", "usuario");
 
             gestor.agregarUsuario(usuario1);
             gestor.agregarUsuario(usuario2);

@@ -1,4 +1,7 @@
-package org.adrian.view;
+package src.main.java.org.adrian.view;
+
+import src.main.java.org.adrian.controller.GestorUsuarios;
+import src.main.java.org.adrian.model.Usuario;
 
 import javax.swing.JOptionPane;
 
@@ -106,6 +109,10 @@ public class Login extends javax.swing.JFrame {
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
 
+        GestorUsuarios Gusuarios = new GestorUsuarios();
+
+
+
         //Evitar que el usuario quede vacio
         if (txtUserInput.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(rootPane, "El campo usuario esta vacio!");
@@ -118,8 +125,22 @@ public class Login extends javax.swing.JFrame {
             txtPasswordInput.grabFocus();
             return;
         }
-        //Si el inicio de sesion es correcto:
+
+        //Si el inicio de sesion es correcto comprobamos si el usuario existe:
+        boolean usuarioExiste = Gusuarios.iniciarSesion(txtUserInput, txtPasswordInput);
+        if (usuarioExiste == true){
+        //Envio de mensaje de login
         JOptionPane.showMessageDialog(rootPane, "Iniciado usuario: "+txtUserInput.getText());
+        }
+        //Si el usuario es incorrecto nos avisa
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Usuario incorrecto!");
+            txtUserInput.grabFocus();
+        }
+
+        /*
+        //Envio de mensaje de login copy
+        JOptionPane.showMessageDialog(rootPane, "Iniciado usuario: "+txtUserInput.getText());*/
     }
 
     private void txtUserInputActionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,6 +173,20 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+
+        //---------------------
+        // Ejemplo de uso
+        GestorUsuarios Gestor = new GestorUsuarios();
+
+        Usuario usuario1 = new Usuario("Pepe", "123", "admin");
+        Usuario usuario2 = new Usuario("Pepa", "456", "usuario");
+
+        Gestor.agregarUsuario(usuario1);
+        Gestor.agregarUsuario(usuario2);
+
+        System.out.println(Gestor.obtenerTodosLosUsuarios());
+
+        //----------------------
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

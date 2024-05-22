@@ -1,14 +1,14 @@
-package org.adrian;
+package src.main.java.org.adrian.model;
 
 public class Usuario {
     private String nombre;
     private String password;
-    private Rol rol;
+    private String rol;
 
     public Usuario() {
     }
 
-    public Usuario(String nombre, String password, Rol rol) {
+    public Usuario(String nombre, String password, String rol) {
         this.nombre = nombre;
         this.password = password;
         this.rol = rol;
@@ -30,11 +30,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public Rol getRol() {
+    public String getRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 
@@ -43,7 +43,7 @@ public class Usuario {
         return "Usuario{" +
                 "nombre='" + nombre + '\'' +
                 ", password='" + password + '\'' +
-                ", rol=" + rol +
+                ", rol='" + rol + '\'' +
                 '}';
     }
 }

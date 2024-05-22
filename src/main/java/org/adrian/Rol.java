@@ -1,4 +1,4 @@
-package org.adrian;
+package src.main.java.org.adrian;
 
 public enum Rol {
     ADMIN("Administrador"),
