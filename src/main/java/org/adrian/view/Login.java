@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
+    private static GestorUsuarios Gusuarios; // Variable estática para el gestor de usuarios
+
     /**
      * Creates new form Login
      */
@@ -109,10 +111,6 @@ public class Login extends javax.swing.JFrame {
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
 
-        GestorUsuarios Gusuarios = new GestorUsuarios();
-
-
-
         //Evitar que el usuario quede vacio
         if (txtUserInput.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(rootPane, "El campo usuario esta vacio!");
@@ -127,10 +125,10 @@ public class Login extends javax.swing.JFrame {
         }
 
         //Si el inicio de sesion es correcto comprobamos si el usuario existe:
-        boolean usuarioExiste = Gusuarios.iniciarSesion(txtUserInput, txtPasswordInput);
-        if (usuarioExiste == true){
-        //Envio de mensaje de login
-        JOptionPane.showMessageDialog(rootPane, "Iniciado usuario: "+txtUserInput.getText());
+        boolean usuarioExiste = Gusuarios.iniciarSesion(txtUserInput.getText(), new String(txtPasswordInput.getPassword()));
+        if (usuarioExiste){
+            //Envio de mensaje de login
+            JOptionPane.showMessageDialog(rootPane, "Iniciado usuario: "+txtUserInput.getText());
         }
         //Si el usuario es incorrecto nos avisa
         else {
@@ -176,15 +174,15 @@ public class Login extends javax.swing.JFrame {
 
         //---------------------
         // Ejemplo de uso
-        GestorUsuarios Gestor = new GestorUsuarios();
+        Gusuarios = new GestorUsuarios(); // Inicializar el gestor de usuarios
 
         Usuario usuario1 = new Usuario("Pepe", "123", "admin");
         Usuario usuario2 = new Usuario("Pepa", "456", "usuario");
 
-        Gestor.agregarUsuario(usuario1);
-        Gestor.agregarUsuario(usuario2);
+        Gusuarios.agregarUsuario(usuario1);
+        Gusuarios.agregarUsuario(usuario2);
 
-        System.out.println(Gestor.obtenerTodosLosUsuarios());
+        System.out.println(Gusuarios.obtenerTodosLosUsuarios());
 
         //----------------------
 

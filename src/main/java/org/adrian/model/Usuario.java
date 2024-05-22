@@ -18,6 +18,8 @@ public class Usuario {
         return nombre;
     }
 
+
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -46,4 +48,5 @@ public class Usuario {
                 ", rol='" + rol + '\'' +
                 '}';
     }
+
 }

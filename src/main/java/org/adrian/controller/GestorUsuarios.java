@@ -1,50 +1,36 @@
 package src.main.java.org.adrian.controller;
 
 import src.main.java.org.adrian.model.Usuario;
-
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GestorUsuarios {
-    private List<Usuario> usuarios;
-    public Usuario usuarioActual;
-
-    public GestorUsuarios() {
-        usuarios = new ArrayList<>();
-    }
-
-
-    public boolean iniciarSesion(JTextField nombre, JPasswordField password) {
-
-        // Verificar las credenciales de inicio de sesión
-        //si el usuario coincide devuelve true, sino devuelve false
-        for (Usuario usuario : usuarios) {
-            if (usuario.getNombre().equals(nombre) && usuario.getPassword().equals(password)) {
-                return true;
-            }
-        }
-        return false;
-    }
+    private Map<String, Usuario> usuarios = new HashMap<>();
 
     public void agregarUsuario(Usuario usuario) {
-        usuarios.add(usuario);
+        usuarios.put(usuario.getNombre(), usuario);
     }
 
     public void eliminarUsuario(Usuario usuario) {
         usuarios.remove(usuario);
     }
 
-    public Usuario buscarUsuarioPorNombre(String nombre) {
+    /*public Usuario buscarUsuarioPorNombre(String nombre) {
         for (Usuario usuario : usuarios) {
             if (usuario.getNombre().equals(nombre)) {
                 return usuario;
             }
         }
-        return null; // Usuario no encontrado
+        return null;
+    }*/
+
+    //Busca usuario si concuerda y luego comprueba que sea su contraseña
+    public boolean iniciarSesion(String nombre, String password) {
+        Usuario usuario = usuarios.get(nombre);
+        return usuario != null && usuario.getPassword().equals(password);
     }
 
-    public List<Usuario> obtenerTodosLosUsuarios() {
+    public Map<String, Usuario> obtenerTodosLosUsuarios() {
         return usuarios;
     }
 }
