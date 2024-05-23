@@ -129,6 +129,7 @@ public class Login extends javax.swing.JFrame {
         if (usuarioExiste){
             //Envio de mensaje de login
             JOptionPane.showMessageDialog(rootPane, "Iniciado usuario: "+txtUserInput.getText());
+            
         }
         //Si el usuario es incorrecto nos avisa
         else {
