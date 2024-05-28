@@ -5,6 +5,8 @@ import java.awt.*;
 
 public class AppFrame extends JFrame {
     public AppFrame() {
+
+        //Utilizando Toolkit mido la pantalla y crea el frame del tamaño buscado
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Toolkit mipantalla = Toolkit.getDefaultToolkit();
         Dimension tamanoPantalla = mipantalla.getScreenSize();

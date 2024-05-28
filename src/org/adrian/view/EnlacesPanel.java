@@ -10,6 +10,10 @@ import javax.swing.event.HyperlinkListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * El panel de enlaces es responsable de mostrar los enlaces disponibles para un usuario y permitir la gestión de estos enlaces.
+ */
 public class EnlacesPanel extends JPanel {
     private GestorEnlaces gestorEnlaces;
     private JTextPane textPane;
@@ -17,6 +21,12 @@ public class EnlacesPanel extends JPanel {
     private AppFrame frame;
     private GestorUsuarios gestorUsuarios;
 
+    /**
+     * Constructor para el panel de enlaces que inicializa el panel con los enlaces del usuario.
+     *
+     * @param usuario        El nombre de usuario.
+     * @param frame          El marco de la aplicación.
+     */
     public EnlacesPanel(String usuario, AppFrame frame, GestorUsuarios gestorUsuarios) {
         this.frame = frame;
         this.gestorUsuarios = gestorUsuarios; // Guarda el GestorUsuarios recibido
@@ -24,6 +34,11 @@ public class EnlacesPanel extends JPanel {
         initialize(usuario);
     }
 
+    /**
+     * Inicializa los componentes del panel.
+     *
+     * @param usuario El nombre de usuario.
+     */
     private void initialize(String usuario) {
         setLayout(null);
 
@@ -93,11 +108,18 @@ public class EnlacesPanel extends JPanel {
         });
 
         logoutButton.addActionListener(new ActionListener() {
+            /**
+             * Maneja el evento de clic en el botón de cierre de sesión.
+             *
+             * @param e El evento de acción.
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Mensaje para confirmar el cierre de sesión
                 int option = JOptionPane.showConfirmDialog(EnlacesPanel.this, "¿Está seguro que desea cerrar sesión?", "Cerrar Sesión", JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
-                    frame.setContentPane(new LoginPanel(frame, gestorUsuarios)); // Utiliza el mismo GestorUsuarios
+                    // Cambia el panel de contenido a LoginPanel
+                    frame.setContentPane(new LoginPanel(frame, gestorUsuarios)); //
                     frame.revalidate();
                     // Restablecer los campos de texto del panel de inicio de sesión
                     ((LoginPanel)frame.getContentPane()).resetFields();
@@ -108,6 +130,9 @@ public class EnlacesPanel extends JPanel {
         updateNoteList();
     }
 
+    /**
+     * Actualiza la lista de enlaces mostrados en el panel.
+     */
     private void updateNoteList() {
         StringBuilder html = new StringBuilder("<html><body>");
         for (Enlace enlace : gestorEnlaces.obtenerTodosLosEnlaces()) {

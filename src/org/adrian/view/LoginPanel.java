@@ -5,6 +5,9 @@ import org.adrian.controller.GestorUsuarios;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel de inicio de sesión que permite a los usuarios autenticarse en la aplicación.
+ */
 public class LoginPanel extends JPanel {
     private JTextField userField;
     private JPasswordField passField;
@@ -16,7 +19,9 @@ public class LoginPanel extends JPanel {
         this.gestorUsuarios = gestorUsuarios;
         initComponents();
     }
-
+    /**
+     * Inicializa y configura los componentes del panel de inicio de sesión.
+     */
     private void initComponents() {
         setLayout(null);
 
@@ -50,19 +55,19 @@ public class LoginPanel extends JPanel {
         jButtonLogin.setFont(new Font("Times New Roman", Font.BOLD, 24));
         jButtonLogin.setBounds(220, 350, 150, 40);
         jButtonLogin.addActionListener(e -> {
-            // Aquí se mantiene la lógica de autenticación original del botón de inicio de sesión
+            // Comprueba si el campo usuario esta vacio
             if (userField.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(LoginPanel.this, "El campo usuario está vacío!");
                 userField.grabFocus();
                 return;
             }
-
+            // comprueba si el campo contraseña esta vacio
             if (new String(passField.getPassword()).trim().isEmpty()) {
                 JOptionPane.showMessageDialog(LoginPanel.this, "El campo contraseña está vacío!");
                 passField.grabFocus();
                 return;
             }
-
+            // En el caso de que el usuario exista, comprobamos contraseña e inicia sesion o no
             boolean usuarioExiste = gestorUsuarios.autenticarUsuario(userField.getText(), new String(passField.getPassword())) != null;
             if (usuarioExiste) {
                 JOptionPane.showMessageDialog(LoginPanel.this, "Iniciado usuario: " + userField.getText());
@@ -75,7 +80,9 @@ public class LoginPanel extends JPanel {
         });
         add(jButtonLogin);
     }
-
+    /**
+     * Reinicio los campos de usuario y contraseña del panel de inicio de sesión.
+     */
     public void resetFields() {
         userField.setText("");
         passField.setText("");
