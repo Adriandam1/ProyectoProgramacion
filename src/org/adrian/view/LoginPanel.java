@@ -3,7 +3,12 @@ package org.adrian.view;
 import org.adrian.controller.GestorUsuarios;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.URI;
+import java.net.URL;
 
 /**
  * Panel de inicio de sesión que permite a los usuarios autenticarse en la aplicación.
@@ -31,6 +36,64 @@ public class LoginPanel extends JPanel {
         jLabelInicioSesion.setBounds(100, 50, 356, 50);
         add(jLabelInicioSesion);
 
+        //-----------------
+        //--------- Imagen hackeando a la derecha
+        JLabel imageLabel = new JLabel();
+        URL imageURL = getClass().getResource("/org/adrian/imagenes/hack2.jpg");
+        if (imageURL != null) {
+            ImageIcon imageIcon = new ImageIcon(imageURL);
+            imageLabel.setIcon(imageIcon);
+            imageLabel.setBounds(600, 60, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+            add(imageLabel);
+        }
+        //------------ Imagen esquina inferior derecha
+
+        URL imageURL2 = getClass().getResource("/org/adrian/imagenes/DaniCast.png");
+        ImageIcon icon2 = new ImageIcon(imageURL2);
+        JLabel imageLabel2 = new JLabel(icon2);
+
+
+        if (imageURL2 != null) {
+            ImageIcon imageIcon2 = new ImageIcon(imageURL2);
+            imageLabel2.setIcon(imageIcon2);
+            // Calcular las coordenadas para la esquina inferior derecha
+            int x = frame.getWidth() - icon2.getIconWidth() -17;
+            int y = frame.getHeight() - icon2.getIconHeight() -40;
+            imageLabel2.setBounds(x, y, icon2.getIconWidth(), icon2.getIconHeight());
+
+            // Crear un borde alrededor de la imagen
+            Border border = BorderFactory.createLineBorder(Color.BLACK, 2); // Puedes ajustar el color y el grosor del borde según tus preferencias
+            imageLabel2.setBorder(border);
+
+            //mouse listener para cuando se haga click en la imagen
+            imageLabel2.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    try {
+                        // Abre la página web en el navegador predeterminado
+                        Desktop.getDesktop().browse(new URI("https://www.danielcastelao.org/"));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    // Cambia el cursor del ratón cuando pasa sobre la imagen
+                    imageLabel2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    // Cambia el cursor del ratón cuando sale de la imagen
+                    imageLabel2.setCursor(Cursor.getDefaultCursor());
+                }
+            });
+            add(imageLabel2);
+        }
+
+        //-----------------
+
         JLabel jLabelUsuario = new JLabel("Usuario:");
         jLabelUsuario.setFont(new Font("Times New Roman", Font.BOLD, 24));
         jLabelUsuario.setBounds(50, 150, 100, 25);
@@ -51,8 +114,8 @@ public class LoginPanel extends JPanel {
         passField.setBounds(180, 250, 300, 30);
         add(passField);
 
-        JButton jButtonLogin = new JButton("BotonLogin");
-        jButtonLogin.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        JButton jButtonLogin = new JButton("Iniciar Sesion");
+        jButtonLogin.setFont(new Font("Times New Roman", Font.BOLD, 20));
         jButtonLogin.setBounds(220, 350, 150, 40);
         jButtonLogin.addActionListener(e -> {
             // Comprueba si el campo usuario esta vacio
