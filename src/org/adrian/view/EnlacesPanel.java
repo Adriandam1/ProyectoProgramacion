@@ -51,6 +51,7 @@ public class EnlacesPanel extends JPanel {
         // Label para mostrar el usuario que ha iniciado sesión
         userLabel = new JLabel("Usuario: " + usuario);
         userLabel.setBounds(10, 10, 200, 25);
+        userLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
         add(userLabel);
 
         JButton logoutButton = new JButton("Cerrar Sesión");
