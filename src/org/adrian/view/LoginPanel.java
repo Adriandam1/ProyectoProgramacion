@@ -53,7 +53,6 @@ public class LoginPanel extends JPanel {
         JLabel imageLabel2 = new JLabel(icon2);
 
 
-        if (imageURL2 != null) {
             ImageIcon imageIcon2 = new ImageIcon(imageURL2);
             imageLabel2.setIcon(imageIcon2);
             // Calcular las coordenadas para la esquina inferior derecha
@@ -90,7 +89,6 @@ public class LoginPanel extends JPanel {
                 }
             });
             add(imageLabel2);
-        }
 
         //-----------------
 

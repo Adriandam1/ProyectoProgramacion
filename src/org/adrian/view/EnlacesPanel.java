@@ -27,6 +27,7 @@ public class EnlacesPanel extends JPanel {
     private AppFrame frame;
     private GestorUsuarios gestorUsuarios;
 
+
     /**
      * Constructor para el panel de enlaces que inicializa el panel con los enlaces del usuario.
      *
@@ -39,7 +40,6 @@ public class EnlacesPanel extends JPanel {
         gestorEnlaces = new GestorEnlaces();
         initialize(usuario);
     }
-
     /**
      * Inicializa los componentes del panel.
      *
@@ -102,7 +102,7 @@ public class EnlacesPanel extends JPanel {
         JLabel imageLabel2 = new JLabel(icon2);
 
 
-        if (imageURL2 != null) {
+
             ImageIcon imageIcon2 = new ImageIcon(imageURL2);
             imageLabel2.setIcon(imageIcon2);
             // Calcular las coordenadas para la esquina inferior derecha
@@ -139,10 +139,6 @@ public class EnlacesPanel extends JPanel {
                 }
             });
             add(imageLabel2);
-        }
-
-
-
         //------------
 
         btnAddNote.addActionListener(new ActionListener() {
