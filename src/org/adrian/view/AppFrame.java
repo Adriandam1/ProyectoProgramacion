@@ -19,7 +19,7 @@ public class AppFrame extends JFrame {
         setTitle("Trabajo de Programacion");
         setLayout(new BorderLayout());
         // Añadimos icono esquina superior izquierda;
-        Image miIcono = mipantalla.getImage("src/main/org/Imagenes/DaniCast.gif");
+        Image miIcono = mipantalla.getImage("src/org/adrian/Imagenes/DaniCast.png");
         setIconImage(miIcono);
     }
 }
