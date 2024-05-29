@@ -13,6 +13,7 @@ public class AppFrame extends JFrame {
         int alturaPantalla = tamanoPantalla.height;
         int anchoPantalla = tamanoPantalla.width;
 
+        //Tamaño ventana = /2 pantalla, localizacion centro de la pantalla
         setSize(anchoPantalla / 2, alturaPantalla / 2);
         setLocation(anchoPantalla / 4, alturaPantalla / 4);
         setResizable(true);

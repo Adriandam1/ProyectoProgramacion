@@ -15,6 +15,7 @@ public class GestorEnlaces {
      * Constructor de la clase GestorEnlaces que inicializa la lista de enlaces.
      */
     public GestorEnlaces() {
+
         enlaces = new ArrayList<>();
     }
 
@@ -32,7 +33,8 @@ public class GestorEnlaces {
      *
      * @param enlace El enlace a eliminar.
      */
-    public void eliminarEnlace(Enlace enlace) {
+    public void eliminarEnlace(Enlace enlace)
+    {
         enlaces.remove(enlace);
     }
 
@@ -42,6 +44,7 @@ public class GestorEnlaces {
      * @return La lista de todos los enlaces.
      */
     public List<Enlace> obtenerTodosLosEnlaces() {
+
         return enlaces;
     }
 }
