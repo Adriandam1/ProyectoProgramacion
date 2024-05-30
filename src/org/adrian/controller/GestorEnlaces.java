@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorEnlaces {
+
     public List<Enlace> obtenerTodosLosEnlaces() {
         List<Enlace> enlaces = new ArrayList<>();
         String sql = "SELECT nombre, url, comentario FROM enlaces";
