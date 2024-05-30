@@ -281,10 +281,14 @@ public class EnlacesPanel extends JPanel {
                 do {
                     nombre = JOptionPane.showInputDialog("Pon nombre al enlace:");
                     if (!nombre.contains(" ")) {
-                        if (!gestorEnlaces.existeEnlaceConNombre(nombre)) {
-                            nombreUnico = true;
+                        if (!nombre.isEmpty()) {
+                            if (!gestorEnlaces.existeEnlaceConNombre(nombre)) {
+                                nombreUnico = true;
+                            } else {
+                                JOptionPane.showMessageDialog(EnlacesPanel.this, "El nombre de enlace ya está en uso. Por favor, elija otro.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
                         } else {
-                            JOptionPane.showMessageDialog(EnlacesPanel.this, "El nombre de enlace ya está en uso. Por favor, elija otro.", "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(EnlacesPanel.this, "El nombre de enlace no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
                         JOptionPane.showMessageDialog(EnlacesPanel.this, "El nombre de enlace no puede contener espacios en blanco.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -297,7 +301,6 @@ public class EnlacesPanel extends JPanel {
                 updateNoteList();
             }
         });
-
         btnDeleteNote.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
