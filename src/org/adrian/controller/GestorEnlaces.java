@@ -11,6 +11,7 @@ import java.util.List;
 public class GestorEnlaces {
     private List<Enlace> enlaces;
 
+
     /**
      * Constructor de la clase GestorEnlaces que inicializa la lista de enlaces.
      */
@@ -47,4 +48,16 @@ public class GestorEnlaces {
 
         return enlaces;
     }
+
+    // Método para verificar si ya existe un enlace con un nombre dado
+    public boolean existeEnlaceConNombre(String nombre) {
+        for (Enlace enlace : enlaces) {
+            if (enlace.getTitulo().equals(nombre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }

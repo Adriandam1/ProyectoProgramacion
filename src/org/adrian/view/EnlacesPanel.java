@@ -276,7 +276,21 @@ public class EnlacesPanel extends JPanel {
         btnAddNote.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nombre = JOptionPane.showInputDialog("Pon nombre al enlace:");
+                String nombre;
+                boolean nombreUnico = false;
+                do {
+                    nombre = JOptionPane.showInputDialog("Pon nombre al enlace:");
+                    if (!nombre.contains(" ")) {
+                        if (!gestorEnlaces.existeEnlaceConNombre(nombre)) {
+                            nombreUnico = true;
+                        } else {
+                            JOptionPane.showMessageDialog(EnlacesPanel.this, "El nombre de enlace ya está en uso. Por favor, elija otro.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(EnlacesPanel.this, "El nombre de enlace no puede contener espacios en blanco.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } while (!nombreUnico || nombre.contains(" "));
+
                 String url = JOptionPane.showInputDialog("Escribe la URL:");
                 String descripcion = JOptionPane.showInputDialog("Escribe algún comentario:");
                 gestorEnlaces.agregarEnlace(new Enlace(nombre, url, descripcion));
