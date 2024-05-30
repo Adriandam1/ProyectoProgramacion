@@ -28,6 +28,15 @@ public class CConexion {
         return conectar;
     }
 
+   /* public Connection2() {
+
+
+        private static String url = "jdbc:sqlite:.\gestor";
+        private static String usuario = "root";
+        private static String password = "";
+        Connection con = DriverManager.getConnection(url, usuario, password);
+    }*/
+
     /**
      * Crea la base de datos.
      */
