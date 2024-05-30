@@ -15,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URI;
 import java.net.URL;
+import java.util.Random;
 
 
 /**
@@ -26,6 +27,7 @@ public class EnlacesPanel extends JPanel {
     private JLabel userLabel;
     private AppFrame frame;
     private GestorUsuarios gestorUsuarios;
+    private static String imagenPrevia = "";
 
 
     /**
@@ -87,24 +89,61 @@ public class EnlacesPanel extends JPanel {
         add(btnDeleteNote);
 
         //--------- Imagen hackeando a la derecha
-        JLabel imageLabel = new JLabel();
+        JLabel imagenArribaDerecha = new JLabel();
         URL imageURL = getClass().getResource("/org/adrian/imagenes/hack1.jpg");
         if (imageURL != null) {
             ImageIcon imageIcon = new ImageIcon(imageURL);
-            imageLabel.setIcon(imageIcon);
-            imageLabel.setBounds(550, 60, imageIcon.getIconWidth(), imageIcon.getIconHeight());
-            add(imageLabel);
+            imagenArribaDerecha.setIcon(imageIcon);
+            imagenArribaDerecha.setBounds(550, 60, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+            add(imagenArribaDerecha);
         }
+        // Agregar funcionalidad para cargar imagen aleatoria al hacer clic en la imagen
+        imagenArribaDerecha.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Lista de rutas de imágenes
+                String[] imagePaths = {
+                        "/org/adrian/imagenes/hack1.jpg",
+                        "/org/adrian/imagenes/java.png",
+                        "/org/adrian/imagenes/hack4.jpg",
+                        "/org/adrian/imagenes/hack3.jpg",
+                        "/org/adrian/imagenes/igor.jpg",
+                        "/org/adrian/imagenes/hack2.jpg"
+                        // Agrega más rutas de imágenes según sea necesario
+                };
+
+                // Obtener una ruta aleatoria diferente de la ruta actual
+                Random random = new Random();
+                String imagenAleatoria;
+                // Repite el proceso hasta encontra una imagen que no sea la anterior
+                do {
+                    imagenAleatoria = imagePaths[random.nextInt(imagePaths.length)];
+                } while (imagenAleatoria.equals(imagenPrevia));
+
+                imagenPrevia = imagenAleatoria;
+
+                // Cargar la imagen aleatoria
+                URL randomImageURL = getClass().getResource(imagenAleatoria);
+                if (randomImageURL != null) {
+                    ImageIcon randomImageIcon = new ImageIcon(randomImageURL);
+                    imagenArribaDerecha.setIcon(randomImageIcon);
+                }
+            }
+        });
+
+
+
+
         //------------
         //------------ Imagen esquina inferior derecha
 
-        URL imageURL2 = getClass().getResource("/org/adrian/imagenes/DaniCast.png");
-        ImageIcon icon2 = new ImageIcon(imageURL2);
+        URL imagenAbajoDerecha = getClass().getResource("/org/adrian/imagenes/DaniCast.png");
+        ImageIcon icon2 = new ImageIcon(imagenAbajoDerecha);
         JLabel imageLabel2 = new JLabel(icon2);
 
 
 
-            ImageIcon imageIcon2 = new ImageIcon(imageURL2);
+            ImageIcon imageIcon2 = new ImageIcon(imagenAbajoDerecha);
             imageLabel2.setIcon(imageIcon2);
             // Calcular las coordenadas para la esquina inferior derecha
             int x = frame.getWidth() - icon2.getIconWidth() -17;
@@ -141,6 +180,98 @@ public class EnlacesPanel extends JPanel {
             });
             add(imageLabel2);
         //------------
+        //------------ Imagen esquina inferior izquierda
+
+        URL imageURL3 = getClass().getResource("/org/adrian/imagenes/github.png");
+        ImageIcon icon3 = new ImageIcon(imageURL3);
+        JLabel imageLabel3 = new JLabel(icon3);
+
+        if (imageURL3 != null) {
+            ImageIcon imageIcon3 = new ImageIcon(imageURL3);
+            imageLabel3.setIcon(imageIcon3);
+            // Calcular las coordenadas para la esquina inferior izquierda
+            int x2 = 10;
+            int y2 = frame.getHeight() - icon3.getIconHeight() - 40;
+            imageLabel3.setBounds(x2, y2, icon3.getIconWidth(), icon3.getIconHeight());
+
+            // Crear un borde alrededor de la imagen
+            Border border2 = BorderFactory.createLineBorder(Color.BLACK, 2);
+            imageLabel3.setBorder(border2);
+
+            // mouse listener para cuando se haga click en la imagen
+            imageLabel3.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    try {
+                        // Abre la página web en el navegador predeterminado
+                        Desktop.getDesktop().browse(new URI("https://github.com/"));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    // Cambia el cursor del ratón cuando pasa sobre la imagen
+                    imageLabel3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    // Cambia el cursor del ratón cuando sale de la imagen
+                    imageLabel3.setCursor(Cursor.getDefaultCursor());
+                }
+            });
+            add(imageLabel3);
+        }
+
+        //------------ Imagen entre las dos esquinas inferiores
+
+        URL imageURL4 = getClass().getResource("/org/adrian/imagenes/youtube.png");
+        ImageIcon icon4 = new ImageIcon(imageURL4);
+        JLabel imageLabel4 = new JLabel(icon4);
+
+        if (imageURL4 != null) {
+            ImageIcon imageIcon4 = new ImageIcon(imageURL4);
+            imageLabel4.setIcon(imageIcon4);
+            // Calcular las coordenadas para el centro inferior
+            int x3 = (frame.getWidth() - icon4.getIconWidth()) / 2 - 100;
+            int y4 = frame.getHeight() - icon4.getIconHeight() - 40;
+            imageLabel4.setBounds(x3, y4, icon4.getIconWidth(), icon4.getIconHeight());
+
+            // Crear un borde alrededor de la imagen
+            Border border3 = BorderFactory.createLineBorder(Color.BLACK, 2);
+            imageLabel4.setBorder(border3);
+
+            // mouse listener para cuando se haga click en la imagen
+            imageLabel4.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    try {
+                        // Abre la página web en el navegador predeterminado
+                        Desktop.getDesktop().browse(new URI("https://www.youtube.com/"));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    // Cambia el cursor del ratón cuando pasa sobre la imagen
+                    imageLabel4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    // Cambia el cursor del ratón cuando sale de la imagen
+                    imageLabel4.setCursor(Cursor.getDefaultCursor());
+                }
+            });
+            add(imageLabel4);
+        }
+
+
+
 
         btnAddNote.addActionListener(new ActionListener() {
             @Override
