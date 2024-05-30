@@ -104,12 +104,17 @@ public class EnlacesPanel extends JPanel {
                 // Lista de rutas de imágenes
                 String[] imagePaths = {
                         "/org/adrian/imagenes/hack1.jpg",
-                        "/org/adrian/imagenes/java.png",
+                        "/org/adrian/imagenes/hack10.png",
                         "/org/adrian/imagenes/hack4.jpg",
                         "/org/adrian/imagenes/hack3.jpg",
                         "/org/adrian/imagenes/igor.jpg",
+                        "/org/adrian/imagenes/hack5.jpg",
+                        "/org/adrian/imagenes/hack6.jpg",
+                        "/org/adrian/imagenes/hack7.jpg",
+                        "/org/adrian/imagenes/hack8.jpg",
+                        "/org/adrian/imagenes/hack9.jpg",
                         "/org/adrian/imagenes/hack2.jpg"
-                        // Agrega más rutas de imágenes según sea necesario
+                        // TODO Agregar mas
                 };
 
                 // Obtener una ruta aleatoria diferente de la ruta actual
@@ -227,24 +232,24 @@ public class EnlacesPanel extends JPanel {
 
         //------------ Imagen entre las dos esquinas inferiores
 
-        URL imageURL4 = getClass().getResource("/org/adrian/imagenes/youtube.png");
-        ImageIcon icon4 = new ImageIcon(imageURL4);
-        JLabel imageLabel4 = new JLabel(icon4);
+        URL URLYouTube = getClass().getResource("/org/adrian/imagenes/youtube.png");
+        ImageIcon iconYouTube = new ImageIcon(URLYouTube);
+        JLabel imageLabelYouTube = new JLabel(iconYouTube);
 
-        if (imageURL4 != null) {
-            ImageIcon imageIcon4 = new ImageIcon(imageURL4);
-            imageLabel4.setIcon(imageIcon4);
+        if (URLYouTube != null) {
+            ImageIcon imageIcon4 = new ImageIcon(URLYouTube);
+            imageLabelYouTube.setIcon(imageIcon4);
             // Calcular las coordenadas para el centro inferior
-            int x3 = (frame.getWidth() - icon4.getIconWidth()) / 2 - 100;
-            int y4 = frame.getHeight() - icon4.getIconHeight() - 40;
-            imageLabel4.setBounds(x3, y4, icon4.getIconWidth(), icon4.getIconHeight());
+            int x3 = (frame.getWidth() - iconYouTube.getIconWidth()) / 2 - 155;
+            int y4 = frame.getHeight() - iconYouTube.getIconHeight() - 40;
+            imageLabelYouTube.setBounds(x3, y4, iconYouTube.getIconWidth(), iconYouTube.getIconHeight());
 
             // Crear un borde alrededor de la imagen
             Border border3 = BorderFactory.createLineBorder(Color.BLACK, 2);
-            imageLabel4.setBorder(border3);
+            imageLabelYouTube.setBorder(border3);
 
             // mouse listener para cuando se haga click en la imagen
-            imageLabel4.addMouseListener(new MouseAdapter() {
+            imageLabelYouTube.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     try {
@@ -258,16 +263,16 @@ public class EnlacesPanel extends JPanel {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     // Cambia el cursor del ratón cuando pasa sobre la imagen
-                    imageLabel4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    imageLabelYouTube.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     // Cambia el cursor del ratón cuando sale de la imagen
-                    imageLabel4.setCursor(Cursor.getDefaultCursor());
+                    imageLabelYouTube.setCursor(Cursor.getDefaultCursor());
                 }
             });
-            add(imageLabel4);
+            add(imageLabelYouTube);
         }
 
 
