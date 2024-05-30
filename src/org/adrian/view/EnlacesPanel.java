@@ -17,7 +17,6 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Random;
 
-
 /**
  * El panel de enlaces es responsable de mostrar los enlaces disponibles para un usuario y permitir la gestión de estos enlaces.
  */
@@ -28,7 +27,6 @@ public class EnlacesPanel extends JPanel {
     private AppFrame frame;
     private GestorUsuarios gestorUsuarios;
     private static String imagenPrevia = "";
-
 
     /**
      * Constructor para el panel de enlaces que inicializa el panel con los enlaces del usuario.
@@ -42,6 +40,7 @@ public class EnlacesPanel extends JPanel {
         gestorEnlaces = new GestorEnlaces();
         initialize(usuario);
     }
+
     /**
      * Inicializa los componentes del panel.
      *
@@ -120,7 +119,7 @@ public class EnlacesPanel extends JPanel {
                 // Obtener una ruta aleatoria diferente de la ruta actual
                 Random random = new Random();
                 String imagenAleatoria;
-                // Repite el proceso hasta encontra una imagen que no sea la anterior
+                // Repite el proceso hasta encontrar una imagen que no sea la anterior
                 do {
                     imagenAleatoria = imagePaths[random.nextInt(imagePaths.length)];
                 } while (imagenAleatoria.equals(imagenPrevia));
@@ -136,9 +135,6 @@ public class EnlacesPanel extends JPanel {
             }
         });
 
-
-
-
         //------------
         //------------ Imagen esquina inferior derecha
 
@@ -146,44 +142,42 @@ public class EnlacesPanel extends JPanel {
         ImageIcon icon2 = new ImageIcon(imagenAbajoDerecha);
         JLabel imageLabel2 = new JLabel(icon2);
 
+        ImageIcon imageIcon2 = new ImageIcon(imagenAbajoDerecha);
+        imageLabel2.setIcon(imageIcon2);
+        // Calcular las coordenadas para la esquina inferior derecha
+        int x = frame.getWidth() - icon2.getIconWidth() -17;
+        int y = frame.getHeight() - icon2.getIconHeight() -40;
+        imageLabel2.setBounds(x, y, icon2.getIconWidth(), icon2.getIconHeight());
 
+        // Crear un borde alrededor de la imagen
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 2); // Puedes ajustar el color y el grosor del borde según tus preferencias
+        imageLabel2.setBorder(border);
 
-            ImageIcon imageIcon2 = new ImageIcon(imagenAbajoDerecha);
-            imageLabel2.setIcon(imageIcon2);
-            // Calcular las coordenadas para la esquina inferior derecha
-            int x = frame.getWidth() - icon2.getIconWidth() -17;
-            int y = frame.getHeight() - icon2.getIconHeight() -40;
-            imageLabel2.setBounds(x, y, icon2.getIconWidth(), icon2.getIconHeight());
-
-            // Crear un borde alrededor de la imagen
-            Border border = BorderFactory.createLineBorder(Color.BLACK, 2); // Puedes ajustar el color y el grosor del borde según tus preferencias
-            imageLabel2.setBorder(border);
-
-            //mouse listener para cuando se haga click en la imagen
-            imageLabel2.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    try {
-                        // Abre la página web en el navegador predeterminado
-                        Desktop.getDesktop().browse(new URI("https://www.danielcastelao.org/"));
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
+        //mouse listener para cuando se haga click en la imagen
+        imageLabel2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    // Abre la página web en el navegador predeterminado
+                    Desktop.getDesktop().browse(new URI("https://www.danielcastelao.org/"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
+            }
 
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    // Cambia el cursor del ratón cuando pasa sobre la imagen
-                    imageLabel2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // Cambia el cursor del ratón cuando pasa sobre la imagen
+                imageLabel2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    // Cambia el cursor del ratón cuando sale de la imagen
-                    imageLabel2.setCursor(Cursor.getDefaultCursor());
-                }
-            });
-            add(imageLabel2);
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Cambia el cursor del ratón cuando sale de la imagen
+                imageLabel2.setCursor(Cursor.getDefaultCursor());
+            }
+        });
+        add(imageLabel2);
         //------------
         //------------ Imagen esquina inferior izquierda
 
@@ -275,9 +269,6 @@ public class EnlacesPanel extends JPanel {
             add(imageLabelYouTube);
         }
 
-
-
-
         btnAddNote.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -300,7 +291,12 @@ public class EnlacesPanel extends JPanel {
                     }
                 } while (!nombreUnico || nombre.contains(" "));
 
+                // Solicitar URL
                 String url = JOptionPane.showInputDialog("Escribe la URL:");
+                // Verificar si se ha cancelado la entrada
+                if (url == null) {
+                    url = null; // Asignar null si se cancela la entrada
+                }
                 String descripcion = JOptionPane.showInputDialog("Escribe algún comentario:");
                 gestorEnlaces.agregarEnlace(new Enlace(nombre, url, descripcion));
                 updateNoteList();
@@ -309,17 +305,19 @@ public class EnlacesPanel extends JPanel {
         btnDeleteNote.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nombre = JOptionPane.showInputDialog("Ingrese el nombre del enlace a eliminar:");
-                Enlace enlaceAEliminar = gestorEnlaces.obtenerTodosLosEnlaces().stream()
-                        .filter(enlace -> enlace.getTitulo().equals(nombre))
-                        .findFirst()
-                        .orElse(null);
-                if (enlaceAEliminar != null) {
-                    gestorEnlaces.eliminarEnlace(enlaceAEliminar);
-                    updateNoteList();
-                } else {
-                    JOptionPane.showMessageDialog(EnlacesPanel.this, "Enlace no encontrado!");
-                }
+                String nombre;
+                    nombre = JOptionPane.showInputDialog("Ingrese el nombre del enlace a eliminar:");
+                    if (nombre != null && !nombre.isEmpty()) {
+                        if (gestorEnlaces.existeEnlaceConNombre(nombre)) {
+                        } else {
+                            JOptionPane.showMessageDialog(EnlacesPanel.this, "El enlace '" + nombre + "' no existe.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(EnlacesPanel.this, "Por favor, ingrese un nombre válido de enlace.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                // Si se proporciona un nombre válido, eliminar el enlace y actualizar la lista
+                gestorEnlaces.eliminarEnlace(nombre);
+                updateNoteList();
             }
         });
 
@@ -353,7 +351,7 @@ public class EnlacesPanel extends JPanel {
         StringBuilder html = new StringBuilder("<html><body>");
         for (Enlace enlace : gestorEnlaces.obtenerTodosLosEnlaces()) {
             html.append("<p>")
-                    .append(enlace.getTitulo()).append(" - ")
+                    .append(enlace.getNombre()).append(" - ")
                     .append("<a href='").append(enlace.getUrl()).append("'>").append(enlace.getUrl()).append("</a>")
                     .append(" - ").append(enlace.getComentario())
                     .append("</p>");
@@ -362,3 +360,4 @@ public class EnlacesPanel extends JPanel {
         textPane.setText(html.toString());
     }
 }
+

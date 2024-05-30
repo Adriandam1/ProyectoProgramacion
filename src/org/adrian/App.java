@@ -1,6 +1,7 @@
 package org.adrian;
 
 import org.adrian.controller.GestorUsuarios;
+import org.adrian.DatabaseConnection;
 import org.adrian.model.Usuario;
 import org.adrian.view.AppFrame;
 import org.adrian.view.LoginPanel;
@@ -12,6 +13,8 @@ public class App {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
+                    DatabaseConnection.createTableIfNotExists(); // Crear la tabla si no existe
+
                     GestorUsuarios gestorUsuarios = new GestorUsuarios();
                     gestorUsuarios.agregarUsuario(new Usuario("lulu", "123", "admin"));
                     gestorUsuarios.agregarUsuario(new Usuario("admin", "password", "admin"));

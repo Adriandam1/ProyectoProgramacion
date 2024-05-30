@@ -4,19 +4,19 @@ package org.adrian.model;
  * La clase Enlace representa un enlace web con un título, una URL y un comentario asociado.
  */
 public class Enlace {
-    private String titulo;
+    private String nombre;
     private String url;
     private String comentario;
 
     /**
      * Constructor de la clase Enlace que inicializa los atributos del enlace.
      *
-     * @param titulo     El título del enlace.
+     * @param nombre     El título del enlace.
      * @param url        La URL del enlace.
      * @param comentario El comentario asociado al enlace.
      */
-    public Enlace(String titulo, String url, String comentario) {
-        this.titulo = titulo;
+    public Enlace(String nombre, String url, String comentario) {
+        this.nombre = nombre;
         this.url = url;
         this.comentario = comentario;
     }
@@ -26,17 +26,17 @@ public class Enlace {
      *
      * @return El título del enlace.
      */
-    public String getTitulo() {
-        return titulo;
+    public String getNombre() {
+        return nombre;
     }
 
     /**
      * Establece el título del enlace.
      *
-     * @param titulo El nuevo título del enlace.
+     * @param nombre El nuevo título del enlace.
      */
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
