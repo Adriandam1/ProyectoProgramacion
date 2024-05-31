@@ -47,27 +47,30 @@ public class EnlacesPanel extends JPanel {
      * @param usuario El nombre de usuario.
      */
     private void initialize(String usuario) {
-        setLayout(null);
+        setLayout(null); // Establece un diseño nulo para posicionar los componentes manualmente
 
-        // Label para mostrar el usuario que ha iniciado sesión
+        // Etiqueta para mostrar el usuario que ha iniciado sesión
         userLabel = new JLabel("Usuario: " + usuario);
         userLabel.setBounds(10, 10, 200, 25);
         userLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
         add(userLabel);
 
+        // Botón para cerrar sesión
         JButton logoutButton = new JButton("Cerrar Sesión");
         logoutButton.setBounds(400, 10, 130, 25);
         add(logoutButton);
 
+        // Configuración del JTextPane para mostrar contenido HTML
         textPane = new JTextPane();
         textPane.setContentType("text/html");
-        textPane.setEditable(false);
+        textPane.setEditable(false); // El texto no es editable por el usuario
         textPane.setBounds(10, 40, 560, 250);
+        // Agrega un listener de hipervínculos para abrir enlaces en el navegador
         textPane.addHyperlinkListener(new HyperlinkListener() {
             @Override
             public void hyperlinkUpdate(HyperlinkEvent e) {
                 if (HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType())) {
-                    try {
+                    try {// Abre el enlace en el navegador
                         java.awt.Desktop.getDesktop().browse(e.getURL().toURI());
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -75,23 +78,25 @@ public class EnlacesPanel extends JPanel {
                 }
             }
         });
-        JScrollPane scrollPane = new JScrollPane(textPane);
+        JScrollPane scrollPane = new JScrollPane(textPane); // Agrega un JScrollPane alrededor del JTextPane
         scrollPane.setBounds(10, 40, 560, 250);
         add(scrollPane);
 
+        // Boton para añadir enlace
         JButton btnAddNote = new JButton("Añadir enlace");
         btnAddNote.setBounds(10, 300, 130, 25);
         add(btnAddNote);
 
+        // Boton para borrar enlace
         JButton btnDeleteNote = new JButton("Borrar enlace");
         btnDeleteNote.setBounds(150, 300, 120, 25);
         add(btnDeleteNote);
 
         //--------- Imagen hackeando a la derecha
         JLabel imagenArribaDerecha = new JLabel();
-        URL imageURL = getClass().getResource("/org/adrian/imagenes/hack1.jpg");
-        if (imageURL != null) {
-            ImageIcon imageIcon = new ImageIcon(imageURL);
+        URL imagenURL = getClass().getResource("/org/adrian/imagenes/hack1.jpg");
+        if (imagenURL != null) {
+            ImageIcon imageIcon = new ImageIcon(imagenURL);
             imagenArribaDerecha.setIcon(imageIcon);
             imagenArribaDerecha.setBounds(550, 60, imageIcon.getIconWidth(), imageIcon.getIconHeight());
             add(imagenArribaDerecha);
@@ -119,18 +124,18 @@ public class EnlacesPanel extends JPanel {
                 // Obtener una ruta aleatoria diferente de la ruta actual
                 Random random = new Random();
                 String imagenAleatoria;
-                // Repite el proceso hasta encontrar una imagen que no sea la anterior
+                // Repite el proceso hasta encontrar una imagen que no sea la anterior usada
                 do {
                     imagenAleatoria = imagePaths[random.nextInt(imagePaths.length)];
                 } while (imagenAleatoria.equals(imagenPrevia));
 
-                imagenPrevia = imagenAleatoria;
+                imagenPrevia = imagenAleatoria; // Actualiza la imagen previa con la nueva
 
                 // Cargar la imagen aleatoria
                 URL randomImageURL = getClass().getResource(imagenAleatoria);
                 if (randomImageURL != null) {
                     ImageIcon randomImageIcon = new ImageIcon(randomImageURL);
-                    imagenArribaDerecha.setIcon(randomImageIcon);
+                    imagenArribaDerecha.setIcon(randomImageIcon); // Actualizar la imagen mostrada
                 }
             }
         });
@@ -138,12 +143,15 @@ public class EnlacesPanel extends JPanel {
         //------------
         //------------ Imagen esquina inferior derecha
 
+        // Obtener la URL de la imagen
         URL imagenAbajoDerecha = getClass().getResource("/org/adrian/imagenes/DaniCast.png");
         ImageIcon icon2 = new ImageIcon(imagenAbajoDerecha);
         JLabel imageLabel2 = new JLabel(icon2);
 
-        ImageIcon imageIcon2 = new ImageIcon(imagenAbajoDerecha);
-        imageLabel2.setIcon(imageIcon2);
+        //ImageIcon imageIcon2 = new ImageIcon(imagenAbajoDerecha);
+        //imageLabel2.setIcon(imageIcon2);
+
+
         // Calcular las coordenadas para la esquina inferior derecha
         int x = frame.getWidth() - icon2.getIconWidth() -17;
         int y = frame.getHeight() - icon2.getIconHeight() -40;
@@ -202,7 +210,7 @@ public class EnlacesPanel extends JPanel {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     try {
-                        // Abre la pgina web en el navegador predeterminado
+                        // Abre la pgina web en el navegador
                         Desktop.getDesktop().browse(new URI("https://github.com/"));
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -269,9 +277,11 @@ public class EnlacesPanel extends JPanel {
             add(imageLabelYouTube);
         }
 
+        // Listener boton para añadir un nuevo enlace
         btnAddNote.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Solicita nombre unico para el enlace
                 String nombre;
                 boolean nombreUnico = false;
                 do {
@@ -298,13 +308,16 @@ public class EnlacesPanel extends JPanel {
                     url = null; // Asignar null si se cancela la entrada
                 }
                 String descripcion = JOptionPane.showInputDialog("Escribe algún comentario:");
+                // Agregar el nuevo enlace usando el gestor de enlaces
                 gestorEnlaces.agregarEnlace(new Enlace(nombre, url, descripcion));
-                updateNoteList();
+                updateNoteList(); // Actualizar la lista de enlaces mostrados en el panel
             }
         });
+        // Listener oton para eliminar un enlace existente
         btnDeleteNote.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Solicitar el nombre del enlace a eliminar
                 String nombre;
                     nombre = JOptionPane.showInputDialog("Ingrese el nombre del enlace a eliminar:");
                     if (nombre != null && !nombre.isEmpty()) {
@@ -317,10 +330,11 @@ public class EnlacesPanel extends JPanel {
                     }
                 // Si se proporciona un nombre válido, eliminar el enlace y actualizar la lista
                 gestorEnlaces.eliminarEnlace(nombre);
-                updateNoteList();
+                updateNoteList(); // Actualizar la lista de enlaces mostrados en el panel
             }
         });
 
+        // Listener boton para cerrar sesión
         logoutButton.addActionListener(new ActionListener() {
             /**
              * Maneja el evento de clic en el botón de cierre de sesión.
@@ -329,19 +343,19 @@ public class EnlacesPanel extends JPanel {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Mensaje para confirmar el cierre de sesión
+                // Mensaje para confirmar el cierre de sesion
                 int option = JOptionPane.showConfirmDialog(EnlacesPanel.this, "¿Está seguro que desea cerrar sesión?", "Cerrar Sesión", JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
                     // Cambia el panel de contenido a LoginPanel
                     frame.setContentPane(new LoginPanel(frame, gestorUsuarios)); //
                     frame.revalidate();
-                    // Restablecer los campos de texto del panel de inicio de sesión
+                    // Restablecer los campos de texto del panel de inicio de sesion
                     ((LoginPanel)frame.getContentPane()).resetFields();
                 }
             }
         });
 
-        updateNoteList();
+        updateNoteList(); // Actualizar la lista de enlaces mostrados en el panel
     }
 
     /**
@@ -357,6 +371,7 @@ public class EnlacesPanel extends JPanel {
                     .append("</p>");
         }
         html.append("</body></html>");
+        // Establecer el texto HTML en el JTextPane para mostrar la lista de enlaces
         textPane.setText(html.toString());
     }
 }

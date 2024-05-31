@@ -9,6 +9,12 @@ import java.util.List;
 
 public class GestorEnlaces {
 
+
+    /**
+     * Obtiene todos los enlaces almacenados en la base de datos.
+     *
+     * @return Lista de objetos Enlace.
+     */
     public List<Enlace> obtenerTodosLosEnlaces() {
         List<Enlace> enlaces = new ArrayList<>();
         String sql = "SELECT nombre, url, comentario FROM enlaces";
@@ -29,7 +35,11 @@ public class GestorEnlaces {
 
         return enlaces;
     }
-
+    /**
+     * Agrega un nuevo enlace a la base de datos.
+     *
+     * @param enlace Objeto Enlace a ser agregado.
+     */
     public void agregarEnlace(Enlace enlace) {
         String sql = "INSERT INTO enlaces (nombre, url, comentario) VALUES (?, ?, ?)";
 
@@ -44,7 +54,11 @@ public class GestorEnlaces {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Elimina un enlace de la base de datos dado su nombre.
+     *
+     * @param nombre Nombre del enlace a ser eliminado.
+     */
     public void eliminarEnlace(String nombre) {
         String sql = "DELETE FROM enlaces WHERE nombre = ?";
 
@@ -57,6 +71,13 @@ public class GestorEnlaces {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Verifica si existe un enlace en la base de datos con el nombre dado.
+     *
+     * @param nombre Nombre del enlace a ser verificado.
+     * @return true si el enlace existe, false en caso contrario.
+     */
     public boolean existeEnlaceConNombre(String nombre) {
         String sql = "SELECT COUNT(*) FROM enlaces WHERE nombre = ?";
         try (Connection connection = DatabaseConnection.getConnection();

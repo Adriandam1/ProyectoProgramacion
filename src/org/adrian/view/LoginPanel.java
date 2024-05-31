@@ -14,8 +14,8 @@ import java.net.URL;
  * Panel de inicio de sesión que permite a los usuarios autenticarse en la aplicación.
  */
 public class LoginPanel extends JPanel {
-    private JTextField userField;
-    private JPasswordField passField;
+    private JTextField campoUsuario;
+    private JPasswordField campoContrasenia;
     private GestorUsuarios gestorUsuarios;
     private AppFrame frame;
 
@@ -28,8 +28,9 @@ public class LoginPanel extends JPanel {
      * Inicializa y configura los componentes del panel de inicio de sesión.
      */
     private void initComponents() {
-        setLayout(null);
+        setLayout(null);  // Establece un diseño nulo para posicionar los componentes manualmente
 
+        // Etiqueta para titulo Inicio sesion
         JLabel jLabelInicioSesion = new JLabel("Inicio de Sesion");
         jLabelInicioSesion.setFont(new Font("Times New Roman", Font.BOLD, 36));
         jLabelInicioSesion.setForeground(new Color(102, 102, 255));
@@ -46,26 +47,26 @@ public class LoginPanel extends JPanel {
             imageLabel.setBounds(600, 60, imageIcon.getIconWidth(), imageIcon.getIconHeight());
             add(imageLabel);
         }
-        //------------ Imagen esquina inferior derecha
+        //------------------ Imagen esquina inferior derecha
 
-        URL imageURL2 = getClass().getResource("/org/adrian/imagenes/DaniCast.png");
-        ImageIcon icon2 = new ImageIcon(imageURL2);
-        JLabel imageLabel2 = new JLabel(icon2);
+        URL imageURLDaniCast = getClass().getResource("/org/adrian/imagenes/DaniCast.png");
+        ImageIcon iconoDaniCast = new ImageIcon(imageURLDaniCast);
+        JLabel imageLabelDaniCast = new JLabel(iconoDaniCast);
 
 
-            ImageIcon imageIcon2 = new ImageIcon(imageURL2);
-            imageLabel2.setIcon(imageIcon2);
+            //ImageIcon imagenDaniCast = new ImageIcon(imageURLDaniCast);
+            //imageLabelDaniCast.setIcon(imagenDaniCast);
             // Calcular las coordenadas para la esquina inferior derecha
-            int x = frame.getWidth() - icon2.getIconWidth() -17;
-            int y = frame.getHeight() - icon2.getIconHeight() -40;
-            imageLabel2.setBounds(x, y, icon2.getIconWidth(), icon2.getIconHeight());
+            int x = frame.getWidth() - iconoDaniCast.getIconWidth() -17;
+            int y = frame.getHeight() - iconoDaniCast.getIconHeight() -40;
+            imageLabelDaniCast.setBounds(x, y, iconoDaniCast.getIconWidth(), iconoDaniCast.getIconHeight());
 
             // Crear un borde alrededor de la imagen
-            Border border = BorderFactory.createLineBorder(Color.BLACK, 2); // Puedes ajustar el color y el grosor del borde según tus preferencias
-            imageLabel2.setBorder(border);
+            Border borde = BorderFactory.createLineBorder(Color.BLACK, 2); // Puedes ajustar el color y el grosor del borde según tus preferencias
+            imageLabelDaniCast.setBorder(borde);
 
             //mouse listener para cuando se haga click en la imagen
-            imageLabel2.addMouseListener(new MouseAdapter() {
+            imageLabelDaniCast.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     try {
@@ -79,73 +80,78 @@ public class LoginPanel extends JPanel {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     // Cambia el cursor del ratón cuando pasa sobre la imagen
-                    imageLabel2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    imageLabelDaniCast.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     // Cambia el cursor del ratón cuando sale de la imagen
-                    imageLabel2.setCursor(Cursor.getDefaultCursor());
+                    imageLabelDaniCast.setCursor(Cursor.getDefaultCursor());
                 }
             });
-            add(imageLabel2);
+            add(imageLabelDaniCast);
 
-        //-----------------
+        //----------------------------
 
+        // Etiqueta para el campo de usuario
         JLabel jLabelUsuario = new JLabel("Usuario:");
         jLabelUsuario.setFont(new Font("Times New Roman", Font.BOLD, 24));
         jLabelUsuario.setBounds(50, 150, 100, 25);
-        add(jLabelUsuario);
+        add(jLabelUsuario); // Agrega la etiqueta al panel
 
-        userField = new JTextField();
-        userField.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        userField.setBounds(jLabelUsuario.getX() + jLabelUsuario.getWidth() + 10, 145, 300, 30);
-        add(userField);
+        // Campo de texto para el usuario
+        campoUsuario = new JTextField();
+        campoUsuario.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        campoUsuario.setBounds(jLabelUsuario.getX() + jLabelUsuario.getWidth() + 10, 145, 300, 30);
+        add(campoUsuario); // Agregar el campo de texto al panel
 
-        JLabel jLabel1 = new JLabel("Contraseña:");
-        jLabel1.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        jLabel1.setBounds(50, 250, 150, 25);
-        add(jLabel1);
+        // Etiqueta para el campo de contraseña
+        JLabel jLabelcontrasena = new JLabel("Contraseña:");
+        jLabelcontrasena.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        jLabelcontrasena.setBounds(50, 250, 150, 25);
+        add(jLabelcontrasena); // Agrega la etiqueta al panel
 
-        passField = new JPasswordField();
-        passField.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        passField.setBounds(180, 250, 300, 30);
-        add(passField);
+        // Campo de contraseña
+        campoContrasenia = new JPasswordField();
+        campoContrasenia.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        campoContrasenia.setBounds(180, 250, 300, 30);
+        add(campoContrasenia); // Agrego el campo de contraseña al panel
 
+        // Botón para iniciar sesión
         JButton jButtonLogin = new JButton("Iniciar Sesion");
         jButtonLogin.setFont(new Font("Times New Roman", Font.BOLD, 20));
         jButtonLogin.setBounds(220, 350, 150, 40);
         jButtonLogin.addActionListener(e -> {
             // Comprueba si el campo usuario esta vacio
-            if (userField.getText().trim().isEmpty()) {
+            if (campoUsuario.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(LoginPanel.this, "El campo usuario está vacío!");
-                userField.grabFocus();
+                campoUsuario.grabFocus(); // Establece el foco en el campo de usuario
                 return;
             }
             // comprueba si el campo contraseña esta vacio
-            if (new String(passField.getPassword()).trim().isEmpty()) {
+            if (new String(campoContrasenia.getPassword()).trim().isEmpty()) {
                 JOptionPane.showMessageDialog(LoginPanel.this, "El campo contraseña está vacío!");
-                passField.grabFocus();
+                campoContrasenia.grabFocus();
                 return;
             }
             // En el caso de que el usuario exista, comprobamos contraseña e inicia sesion o no
-            boolean usuarioExiste = gestorUsuarios.autenticarUsuario(userField.getText(), new String(passField.getPassword())) != null;
+            boolean usuarioExiste = gestorUsuarios.autenticarUsuario(campoUsuario.getText(), new String(campoContrasenia.getPassword())) != null;
             if (usuarioExiste) {
-                JOptionPane.showMessageDialog(LoginPanel.this, "Iniciado usuario: " + userField.getText());
-                frame.setContentPane(new EnlacesPanel(userField.getText(), frame, gestorUsuarios));
+                JOptionPane.showMessageDialog(LoginPanel.this, "Iniciado usuario: " + campoUsuario.getText());
+                frame.setContentPane(new EnlacesPanel(campoUsuario.getText(), frame, gestorUsuarios));
                 frame.revalidate();
             } else {
                 JOptionPane.showMessageDialog(LoginPanel.this, "Usuario incorrecto!");
-                userField.grabFocus();
+                campoUsuario.grabFocus();
             }
         });
-        add(jButtonLogin);
+        add(jButtonLogin); //Agregar el botón al panel
     }
     /**
      * Reinicio los campos de usuario y contraseña del panel de inicio de sesión.
      */
     public void resetFields() {
-        userField.setText("");
-        passField.setText("");
+        campoUsuario.setText("");
+        campoContrasenia.setText("");
     }
 }
