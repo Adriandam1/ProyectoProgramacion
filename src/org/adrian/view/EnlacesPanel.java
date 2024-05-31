@@ -202,7 +202,7 @@ public class EnlacesPanel extends JPanel {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     try {
-                        // Abre la página web en el navegador predeterminado
+                        // Abre la pgina web en el navegador predeterminado
                         Desktop.getDesktop().browse(new URI("https://github.com/"));
                     } catch (Exception ex) {
                         ex.printStackTrace();
