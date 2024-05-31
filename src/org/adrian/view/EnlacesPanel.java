@@ -117,8 +117,13 @@ public class EnlacesPanel extends JPanel {
                         "/org/adrian/imagenes/hack7.jpg",
                         "/org/adrian/imagenes/hack8.jpg",
                         "/org/adrian/imagenes/hack9.jpg",
+                        "/org/adrian/imagenes/hack11.png",
+                        "/org/adrian/imagenes/hack12.jpg",
+                        "/org/adrian/imagenes/hack13.jpg",
+                        "/org/adrian/imagenes/hack14.jpg",
+                        "/org/adrian/imagenes/hack15.jpg",
+                        "/org/adrian/imagenes/hack16.jpg",
                         "/org/adrian/imagenes/hack2.jpg"
-                        // TODO Agregar mas
                 };
 
                 // Obtener una ruta aleatoria diferente de la ruta actual
