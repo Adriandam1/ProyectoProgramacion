@@ -1,7 +1,7 @@
 package org.adrian.model;
 
 /**
- * La clase Enlace representa un enlace web con un título, una URL y un comentario asociado.
+ * La clase Enlace representa un enlace web con un titulo, una URL y un comentario asociado.
  */
 public class Enlace {
     private String nombre;
