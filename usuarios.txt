@@ -1,0 +1,4 @@
+lulu,123,admin
+admin,password,admin
+user1,pass1,user
+user2,pass2,user
