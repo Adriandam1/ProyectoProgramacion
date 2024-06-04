@@ -2,6 +2,9 @@ package org.adrian.controller;
 
 import org.adrian.model.Usuario;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,5 +62,29 @@ public class GestorUsuarios {
             }
         }
         return null;
+    }
+
+    /**
+     * Carga los usuarios desde un archivo de texto y los agrega al gestor de usuarios.
+     * El archivo debe tener el siguiente formato:
+     * Cada línea del archivo representa un usuario.
+     * @param nombreArchivo     El nombre del archivo que contiene los usuarios.
+     * @param gestorUsuarios    El gestor de usuarios al cual se agregarán los usuarios leídos.
+     */
+    public static void cargarUsuariosDesdeArchivo(String nombreArchivo, GestorUsuarios gestorUsuarios) {
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(",");
+                if (partes.length == 3) {
+                    String nombreUsuario = partes[0];
+                    String contraseña = partes[1];
+                    String tipoUsuario = partes[2];
+                    gestorUsuarios.agregarUsuario(new Usuario(nombreUsuario, contraseña, tipoUsuario));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
